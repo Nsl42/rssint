@@ -3,6 +3,12 @@
 import sys 
 import feedparser
 import hashlib
+import tika
+import parser
+import readability
+from readability import Document
+import urllib
+from tika import requests
 
 ITEMLOC = '/tmp/rssint/'
 
@@ -12,9 +18,15 @@ def writer(id, entry, feedlink):
         f.write('Date: %s\n' % entry.published)
         f.write('Link: %s\n' % entry.link)
         f.write('Feed: %s\n' % feedlink)
+        f.write('Desc: %s\n' % entry.description.encode('utf-8'))
         f.write('\n')
-        f.write(entry.description.encode('utf-8'))
+        f.write(content(entry.link).encode('utf-8'))
         f.write('\n')
+
+def content(link):
+    target = urllib.urlopen(link)
+    d = Document(input=target)
+    return d.summary()
 
 def spyder(url):
     d = feedparser.parse(url)
