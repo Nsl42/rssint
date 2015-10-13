@@ -1,0 +1,20 @@
+feedparser - Parse Atom and RSS feeds in Python.
+	https://pypi.python.org/pypi/feedparser
+	Copyright (C) 2010-2015 Kurt McKee <contactme@kurtmckee.org>
+	Copyright (C) 2002-2008 Mark Pilgrim
+	Simplified BSD License (FreeBSD License)
+		FSF and OSI approved, GPL compatible.
+	For more information, see feedparser/LICENSE file.
+
+feedparser/sgml.py used by feedparser for handling illformed feeds
+	(among other things). It was deprecated in Python 2.6.
+	Python Software Foundation License
+		BSD-style, permissive free software license
+		FSF and OSI approved, GPL compatible.
+
+readability - clean up HTML web pages
+	https://github.com/gfxmonk/python-readability
+	Apache License 2.0
+		FSF and OSI approved, GPL compatible.
+	For more information, see readability/README and
+	http://www.apache.org/licenses/LICENSE-2.0
