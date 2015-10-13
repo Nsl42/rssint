@@ -1,1 +1,35 @@
-rssint
+
+(Michael) Phelps.py 
+ RSS Crawler
+
+
+
+
+    USAGE : ./phelps.py filename
+
+                filename: May be a relative or absolute link to a file. File content must
+                                            be links to rss feeds, separed by a newline.
+
+    EXAMPLE : ./phelps.py sample.rss
+
+------------ sample.rss --------------
+http://rss.lemonde.fr/c/205/f/3052/index.rss
+---------------------------------------
+------------ bigsample.rss --------------
+http://www.france24.com/en/timeline/rss
+http://rss.cnn.com/rss/edition_world.rss
+http://www.abc.net.au/news/feed/52278/rss.xml 
+http://feeds.washingtonpost.com/rss/world
+http://feeds.latimes.com/latimes/news/nationworld/world
+http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989
+http://www.lavenir.net/rss.aspx?foto=1&intro=1&section=info&info=1642237c-66b9-4e8a-a8c1-288d61fefe7e
+http://www.ledevoir.com/rss/section/international.xml?id=76
+http://feeds.lefigaro.fr/c/32266/f/438192/index.rss
+---------------------------------------
+
+    AUTHORS :  Anas ALAOUI M'DARHRI
+                    nslmdrhr@gmail.com
+                Romain BRESSAN
+                    romain@brss.me
+
+    LICENSE :
