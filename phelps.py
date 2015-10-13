@@ -14,6 +14,8 @@ from tika import requests
 from multiprocessing import Pool
 
 ITEMLOC = '/tmp/rssint/'
+UPDATEMODE = 'lazy'
+#UPDATEMODE = 'none'
 
 def content(link):
     target = urllib.urlopen(link)
@@ -22,8 +24,9 @@ def content(link):
     return d.summary()
 
 def writer(entry):
+    #Using the sha256 over the description to generate the item's id
     id = hashlib.sha256(entry.description.encode('utf-8')).hexdigest()
-    if(os.path.exists(ITEMLOC + id)):
+    if(os.path.exists(ITEMLOC + id) && UPDATEMODE == 'lazy'):
         return False
     with open(ITEMLOC + id, 'w') as f:
         f.write('Title: %s\n' % entry.title.encode('utf-8'))
@@ -42,7 +45,7 @@ def spyder(url):
     try:
         d = feedparser.parse(url)
     except URLError:
-        print 'The network could not be found. Check your internet connection and try again.'
+        print 'ERROR: The network could not be found. Check your internet connection and try again.'
         exit(-1)
     for ent in d.entries:
         ent.feedlink = d.feed.link
@@ -52,8 +55,15 @@ def spyder(url):
         if r: i += 1
     print '%s\t%d/%d element(s) written' % (d.feed.title, i, len(d.entries))
 
-if len(argv) !=0:
+
+# MAIN
+
+if len(argv) == 1:
     print "usage : ./phelps.py filename"
+
+if not os.path.exists(ITEMLOC) :
+    os.makedirs(ITEMLOC)
+
 for arg in argv[1:]:
     with open(arg) as f:
         for line in f:

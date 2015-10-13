@@ -3,6 +3,8 @@
  RSS Crawler
 
 
+    AUTHORS :  Anas ALAOUI M'DARHRI <nslmdrhr@gmail.com>
+                Romain BRESSAN <romain@brss.me>
 
 
     USAGE : ./phelps.py filename
@@ -27,9 +29,19 @@ http://www.ledevoir.com/rss/section/international.xml?id=76
 http://feeds.lefigaro.fr/c/32266/f/438192/index.rss
 ---------------------------------------
 
-    AUTHORS :  Anas ALAOUI M'DARHRI
-                    nslmdrhr@gmail.com
-                Romain BRESSAN
-                    romain@brss.me
+    CONFIG VARIABLES : 
+            ITEMLOC: Floder in which the crawler will write the content. Will
+                     be created if doesn't exist.
+            UPDATEMODE: Changes the crawler's reaction when encontering an
+                        existing sha256 id (The item is already present in the ITEMLOC folder.)
+                        Two possible options: 
+                    'none' will not think twice, and override existing files.
+                    'lazy' the lazy option will never override if an existing file is found. 
+                    'timestamp' <UNIMPLEMENTED>
 
-    LICENSE :
+the timestamp option was to override files only if the item being recieved was
+older than the existing.  Unfortunatly, we had troubles installing all the
+libraries and had no time left to implement this functionnality.
+
+
+    LICENSE : Please refer to the LICENSE file, root directory.
