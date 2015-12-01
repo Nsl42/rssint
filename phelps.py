@@ -26,7 +26,7 @@ def content(link):
 def writer(entry):
     #Using the sha256 over the description to generate the item's id
     id = hashlib.sha256(entry.description.encode('utf-8')).hexdigest()
-    if(os.path.exists(ITEMLOC + id) && UPDATEMODE == 'lazy'):
+    if(os.path.exists(ITEMLOC + id) and UPDATEMODE == 'lazy'):
         return False
     with open(ITEMLOC + id, 'w') as f:
         f.write('Title: %s\n' % entry.title.encode('utf-8'))

@@ -1,0 +1,13 @@
+*.aux
+*.log
+*.pyc
+bigsample.rss
+docu/.list.un~
+install/
+pylucene/
+rss.rss
+sujet.pdf
+tika/
+tinyss.rss
+toto
+
