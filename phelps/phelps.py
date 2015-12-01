@@ -1,7 +1,6 @@
 #!/bin/python2
 
 import os
-import pylucene
 import feedparser
 import hashlib
 import parser
