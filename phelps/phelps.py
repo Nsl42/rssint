@@ -1,16 +1,15 @@
 #!/bin/python2
 
 import os
+import pylucene
 import feedparser
 import hashlib
-import tika
 import parser
 import readability
 from sys import argv,exit
 from readability import Document
 import urllib
 from urllib2 import URLError
-from tika import requests
 from multiprocessing import Pool
 
 ITEMLOC = '/tmp/rssint/'
