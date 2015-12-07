@@ -70,26 +70,21 @@ public class Jinger {
             InputStream is = new ByteArrayInputStream(content.getBytes());
             message = new MimeMessage(sess, is);
             message.getAllHeaderLines();
-            for (Enumeration<Header> e = message.getAllHeaders(); e.hasMoreElements();) {
-                Header h = e.nextElement();
-                System.out.println("Name : " + h.getName());
-                System.out.println("Value : " + h.getValue());
-            }
-
 
             Field pathField = new StringField("path", s, Field.Store.YES);
             doc.add(pathField);
 
             if(message != null) {
-                Field titleField = new StringField("title", message.getHeader("Title:")[0], Field.Store.YES);
+                Field titleField = new TextField("title", message.getHeader("Title")[0], Field.Store.YES);
                 doc.add(titleField);
-                Field catField = new StringField("category", (message.getHeader("Category:")[0] == "") ? "__NULL__" 
+                Field catField = new TextField("category", (message.getHeader("Category")[0] == "") ? "__NULL__" 
                         : message.getHeader("Category")[0], Field.Store.YES);
                 doc.add(catField);
-                Field linkField = new StringField("link", message.getHeader("Link:")[0], Field.Store.YES);
+                Field linkField = new TextField("link", message.getHeader("Link")[0], Field.Store.YES);
                 doc.add(linkField);
-                Field feedField = new StringField("feed", message.getHeader("Feed:")[0], Field.Store.YES);
+                Field feedField = new TextField("feed", message.getHeader("Feed")[0], Field.Store.YES);
                 doc.add(feedField);
+                System.out.println(doc);
             }
 
         } catch(Exception e) { e.printStackTrace(); }
