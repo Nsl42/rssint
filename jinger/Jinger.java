@@ -60,23 +60,40 @@ public class Jinger {
     }
 
     public static void indexDoc(IndexWriter iw, String s) throws IOException {
-        Document doc = new Document();
 
-        Field pathField = new StringField("path", s, Field.Store.YES);
-        doc.add(pathField);
+        MimeMessage message = null;
+            Document doc = new Document();
         try{
             byte[] encoded = Files.readAllBytes(Paths.get(s));
             String content = new String(encoded, Charset.forName("UTF-8"));
             Session sess = Session.getDefaultInstance(new Properties());
             InputStream is = new ByteArrayInputStream(content.getBytes());
-            MimeMessage message = new MimeMessage(sess, is);
+            message = new MimeMessage(sess, is);
             message.getAllHeaderLines();
             for (Enumeration<Header> e = message.getAllHeaders(); e.hasMoreElements();) {
                 Header h = e.nextElement();
                 System.out.println("Name : " + h.getName());
                 System.out.println("Value : " + h.getValue());
             }
+
+
+            Field pathField = new StringField("path", s, Field.Store.YES);
+            doc.add(pathField);
+
+            if(message != null) {
+                Field titleField = new StringField("title", message.getHeader("Title:")[0], Field.Store.YES);
+                doc.add(titleField);
+                Field catField = new StringField("category", (message.getHeader("Category:")[0] == "") ? "__NULL__" 
+                        : message.getHeader("Category")[0], Field.Store.YES);
+                doc.add(catField);
+                Field linkField = new StringField("link", message.getHeader("Link:")[0], Field.Store.YES);
+                doc.add(linkField);
+                Field feedField = new StringField("feed", message.getHeader("Feed:")[0], Field.Store.YES);
+                doc.add(feedField);
+            }
+
         } catch(Exception e) { e.printStackTrace(); }
+
         doc.add(new TextField("content", new BufferedReader(new FileReader(s))));
 
 

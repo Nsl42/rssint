@@ -30,7 +30,14 @@ public class Jinder{
         Analyzer anal = new StandardAnalyzer();
 
         String keyword = args[0];
-        QueryParser parser = new QueryParser("content", anal);
+        String[] keywor = fieldSelection(args[0]);
+        QueryParser parser;
+        if (keywor.length == 2)
+        {
+            keyword = keywor[1];
+            parser = new QueryParser(keywor[0], anal);
+        } else
+            parser = new QueryParser("content", anal);
 
         Query  query = parser.parse(keyword);
         searcher.search(query, 100);
@@ -38,6 +45,10 @@ public class Jinder{
         doPagingSearch(searcher, query);
 
         reader.close();
+    }
+    
+    public static String[] fieldSelection(String arg) {
+        return arg.split(":");
     }
 
 
