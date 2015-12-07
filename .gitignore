@@ -6,6 +6,8 @@ phelps/feedparser/*
 phelps/install/*
 phelps/readability/*
 phelps/tika/*
+*.pyc
 
 
 jinger/index_old/
+runJinder
