@@ -1,48 +1,19 @@
-
-(Michael) Phelps.py 
-Python HTML Extended Loutre parsing system.
- RSS Crawler
-
-
-    AUTHORS :  Anas ALAOUI M'DARHRI <nslmdrhr@gmail.com>
-                Romain BRESSAN <romain@brss.me>
+# FeedCollector Project
+    ### AUTHORS : 
+* Anas ALAOUI M'DARHRI <nslmdrhr@gmail.com>
+* Romain BRESSAN <romain@brss.me>
 
 
-    USAGE : ./phelps.py filename
+# 1. Temporarily stocked items data dictionnary :
 
-                filename: May be a relative or absolute link to a file. File content must
-                                            be links to rss feeds, separed by a newline.
-
-    EXAMPLE : ./phelps.py sample.rss
-
------------- sample.rss --------------
-http://rss.lemonde.fr/c/205/f/3052/index.rss
----------------------------------------
------------- bigsample.rss --------------
-http://www.france24.com/en/timeline/rss
-http://rss.cnn.com/rss/edition_world.rss
-http://www.abc.net.au/news/feed/52278/rss.xml 
-http://feeds.washingtonpost.com/rss/world
-http://feeds.latimes.com/latimes/news/nationworld/world
-http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989
-http://www.lavenir.net/rss.aspx?foto=1&intro=1&section=info&info=1642237c-66b9-4e8a-a8c1-288d61fefe7e
-http://www.ledevoir.com/rss/section/international.xml?id=76
-http://feeds.lefigaro.fr/c/32266/f/438192/index.rss
----------------------------------------
-
-    CONFIG VARIABLES : 
-            ITEMLOC: Floder in which the crawler will write the content. Will
-                     be created if doesn't exist.
-            UPDATEMODE: Changes the crawler's reaction when encontering an
-                        existing sha256 id (The item is already present in the ITEMLOC folder.)
-                        Two possible options: 
-                    'none' will not think twice, and override existing files.
-                    'lazy' the lazy option will never override if an existing file is found. 
-                    'timestamp' <UNIMPLEMENTED>
-
-    the timestamp option was to override files only if the item being recieved was
-    older than the existing.  Unfortunatly, we had troubles installing all the
-    libraries and had no time left to implement this functionnality.
+* **TITLE** : _title of the item_
+* **CATEGORY** : _category of the item (only for test datasets)
+* **DATE_PUB** : _last publication/update date_
+* **DATE_PROC** : _processing date (timestamp)_
+* **DESCRIPTION** : _short description of the item_
+* **CONTENT** : _full content boilerplated and untagged_
+* **LINK** : _link to the item on publisher's website_
+* **FEED** : _link to the feed_
+* **PRED_CAT** : _category predicted by our CLASSIFIER. Null if never analysed_
 
 
-    LICENSE : Please refer to the LICENSE file, root directory.

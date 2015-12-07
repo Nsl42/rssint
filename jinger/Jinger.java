@@ -11,10 +11,22 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import javax.mail.Header;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
+
+import java.util.Enumeration;
+import java.util.Properties ; 
 
 /**
  * Jinger: Main class for the indexer server needed in the RSSSearchEngine Project
@@ -52,8 +64,21 @@ public class Jinger {
 
         Field pathField = new StringField("path", s, Field.Store.YES);
         doc.add(pathField);
-
+        try{
+            byte[] encoded = Files.readAllBytes(Paths.get(s));
+            String content = new String(encoded, Charset.forName("UTF-8"));
+            Session sess = Session.getDefaultInstance(new Properties());
+            InputStream is = new ByteArrayInputStream(content.getBytes());
+            MimeMessage message = new MimeMessage(sess, is);
+            message.getAllHeaderLines();
+            for (Enumeration<Header> e = message.getAllHeaders(); e.hasMoreElements();) {
+                Header h = e.nextElement();
+                System.out.println("Name : " + h.getName());
+                System.out.println("Value : " + h.getValue());
+            }
+        } catch(Exception e) { e.printStackTrace(); }
         doc.add(new TextField("content", new BufferedReader(new FileReader(s))));
+
 
         System.out.println("Updating " + s);
         iw.updateDocument(new Term("path" + s), doc);
