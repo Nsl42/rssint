@@ -77,8 +77,12 @@ public class Jinger {
             if(message != null) {
                 Field titleField = new TextField("title", message.getHeader("Title")[0], Field.Store.YES);
                 doc.add(titleField);
-                Field catField = new TextField("category", (message.getHeader("Category")[0] == " ") ? "__NULL__" 
-                        : message.getHeader("Category")[0], Field.Store.YES);
+                Field catField = null;
+                if(message.getHeader("Category")[0] == " ") {
+                    catField =  new TextField("category", "__NULL__", Field.Store.YES);
+                } else{
+                        catField = new TextField("category", message.getHeader("Category")[0], Field.Store.YES);
+                }
                 doc.add(catField);
                 Field linkField = new TextField("link", message.getHeader("Link")[0], Field.Store.YES);
                 doc.add(linkField);
