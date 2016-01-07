@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Contexte}{2}{0}{1}
+\beamer@sectionintoc {2}{Solution}{4}{0}{2}
+\beamer@sectionintoc {3}{D\IeC {\'e}monstration}{7}{0}{3}
