@@ -18,3 +18,16 @@ readability - clean up HTML web pages
 		FSF and OSI approved, GPL compatible.
 	For more information, see readability/README and
 	http://www.apache.org/licenses/LICENSE-2.0
+
+html2text - convert html document to text, remove html tags
+	GNU GPL 3.0
+	http://www.aaronsw.com/2002/html2text/
+
+Lucene - index document and querry the index
+	Apache License 2.0
+	https://lucene.apache.org/
+
+javax.mail - read meta-data (title, link, category, ...) from saved document
+		for indexing those data.
+	Optional java package for use 
+	http://www.oracle.com/technetwork/java/javamail/index.html
