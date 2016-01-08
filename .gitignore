@@ -8,7 +8,5 @@ phelps/readability/*
 phelps/tika/*
 *.pyc
 
-lib/
 
 jinger/index_old/
-runJinder
