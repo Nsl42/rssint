@@ -2,10 +2,6 @@
 jinger/index/*
 jinger/lib/*
 jinger/lucene/*
-phelps/feedparser/*
-phelps/install/*
-phelps/readability/*
-phelps/tika/*
 *.pyc
 
 
