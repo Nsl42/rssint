@@ -13,6 +13,11 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
+/**
+ * Searcher module for the Jinger indexer
+ * @author Anas Alaoui M'Darhri
+ * @author Romain Bressan
+ */
 public class Jinder {
 
     private final static String INDEX = "index";
@@ -27,9 +32,11 @@ public class Jinder {
         Analyzer anal = new StandardAnalyzer();
 
         String keyword = "";
+        //Getting args
 	for (String arg : args)
 		keyword += arg + " ";
 
+    //preparing query over content
 	QueryParser parser = new QueryParser("content", anal);
         Query query = parser.parse(keyword);
         search(searcher, query);
@@ -42,6 +49,7 @@ public class Jinder {
 	    TopDocs results = searcher.search(query, MAX_RESULTS);
 
 	    print(results.totalHits + " matching documents.");
+        //Doing the research and printing the result
 	    for (ScoreDoc hit : results.scoreDocs) {
 		    Document doc = searcher.doc(hit.doc);
 		    print(doc.get("path") + " [" + hit.score + "] ->\n\t"
@@ -49,6 +57,9 @@ public class Jinder {
 	    }
     }
 
+    /**
+     * Display results
+     */
     public static void print(String line) {
 	    System.out.println(line);
     }

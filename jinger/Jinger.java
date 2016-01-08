@@ -1,4 +1,3 @@
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -25,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 
+
 import java.util.Enumeration;
 import java.util.Properties ; 
 
@@ -37,6 +37,7 @@ import java.util.Properties ;
 public class Jinger {
 
     private final static String INDEX = "index";
+    private static boolean psychic_auto = true;
 
     /**
      * Empty private constructor so the class doesn't have a default public constructor
@@ -62,8 +63,10 @@ public class Jinger {
     public static void indexDoc(IndexWriter iw, String s) throws IOException {
 
         MimeMessage message = null;
-            Document doc = new Document();
+        Document doc = new Document();
+        boolean to_analyze = false;
         try{
+            //Getting the Fields of the temporary file
             byte[] encoded = Files.readAllBytes(Paths.get(s));
             String content = new String(encoded, Charset.forName("UTF-8"));
             Session sess = Session.getDefaultInstance(new Properties());
@@ -71,6 +74,7 @@ public class Jinger {
             message = new MimeMessage(sess, is);
             message.getAllHeaderLines();
 
+            //Creating the fields for the lucene indexing
             Field pathField = new StringField("path", s, Field.Store.YES);
             doc.add(pathField);
 
@@ -78,25 +82,43 @@ public class Jinger {
                 Field titleField = new TextField("title", message.getHeader("Title")[0], Field.Store.YES);
                 doc.add(titleField);
                 Field catField = null;
-                if(message.getHeader("Category")[0] == " ") {
+                // Parsing Category and setting Psychic for later use
+                if(message.getHeader("Category")[0].length() == 0) {
                     catField =  new TextField("category", "__NULL__", Field.Store.YES);
+                    to_analyze = true;
                 } else{
-                        catField = new TextField("category", message.getHeader("Category")[0], Field.Store.YES);
+                    catField = new TextField("category", message.getHeader("Category")[0], Field.Store.YES);
                 }
                 doc.add(catField);
-                Field linkField = new TextField("link", message.getHeader("Link")[0], Field.Store.YES);
-                doc.add(linkField);
+                try{
+                    Field linkField = new TextField("link", message.getHeader("Link")[0], Field.Store.YES);
+                    doc.add(linkField);
+                }catch(NullPointerException e){}
                 Field feedField = new TextField("feed", message.getHeader("Feed")[0], Field.Store.YES);
                 doc.add(feedField);
-                System.out.println(doc);
             }
 
         } catch(Exception e) { e.printStackTrace(); }
 
         doc.add(new TextField("content", new BufferedReader(new FileReader(s))));
 
+        // Using Psychic to determine category if it's null
+        if(psychic_auto || to_analyze) {
+            try{
+                Psychic p = new Psychic(5);
+                Field catField =  new TextField("category_pred", p.run(doc), Field.Store.YES);
+                doc.add(catField);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        System.out.println("Updating " + s);
-        iw.updateDocument(new Term("path" + s), doc);
+        // Printing 
+        String c = (doc.get("category").equals("__NULL__") ? doc.get("category_pred") : doc.get("category"));
+        System.out.println(doc.get("path") + " Indexed !");
+        System.out.println(doc.get("title")+"        " + c);
+
+        //Updating Document
+        iw.updateDocument(new Term("path", s), doc);
     }
 }

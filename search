@@ -1,0 +1,3 @@
+#!/bin/sh
+cd jinger
+./search "$1"
