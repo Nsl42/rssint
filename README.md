@@ -1,4 +1,4 @@
-# FeedCollector Project
+# rssint Project
     ### AUTHORS : 
 * Anas ALAOUI M'DARHRI <nslmdrhr@gmail.com>
 * Romain BRESSAN <romain@brss.me>
