@@ -25,7 +25,6 @@ Create a watch system on Internet based on RSS feed, with the following componen
     the temporary storage directory of the crawler
     * ./search : Executes the request engine, jinger. Must be followed by a
       set of keywords to build the query
-      ensemble de mots-clés pour constituer la recherche.
 
 # Phelps: collector
 
