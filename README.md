@@ -58,7 +58,7 @@ already classified. Use KNN algorithm with Lucene's MoreLikeThis class.
 
 
 
-# Temporarily stocked items data dictionnary :
+# Meta-Data stocked by Lucene dictionnary :
 
 * **Title**: _title of the item_
 * **Category**: _category of the item (only for test datasets)
